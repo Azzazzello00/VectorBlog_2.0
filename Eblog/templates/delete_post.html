@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block title %} Elimina Articolo{% endblock%}
+
+
+
+ {% block content %}
+
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+
+	<h1>Elimina Articolo ...</h1>
+	<br/><br/>
+	<h3>Elimina: {{post.title}} </h3>
+
+	<br/>
+	<div class="form-group">
+		<form method = "POST">
+		{% csrf_token %}
+		<strong>Sei sicuro ?</strong><br/><br/>
+		<button class="btn btn-secondary">Elimina Articolo</button>
+	</div>
+	{% else %}
+	Non sei autorizato!!!
+	{% endif %}
+{% else %}
+Non sei autorizato!!!
+
+{% endif %}
+{% endblock %}

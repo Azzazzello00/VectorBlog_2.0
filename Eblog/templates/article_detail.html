@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} {{ post.title_tag }} {% endblock%}
+
+ 
+ {% block content %}
+current user {{ user.id }}
+post author: {{ post.author.id }}
+
+<h1>{{ post.title }}</h1>
+<small>Publicato da:
+	{{post.author.first_name }}
+	{{post.author.last_name }} -
+	{{post.post_date}} 
+	{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+			-<a href="{%url 'update_post' post.pk %}" class="btn btn-primary btn-sm">Modifica </a>
+
+			<a href="{%url 'delete_post' post.pk %}" class="btn btn-primary btn-sm">Elimina </a>
+
+
+				{% endif %}
+			{% endif %}
+
+
+		</small><br/>
+		<hr>
+		<br/>
+
+		{% if post.header_image %}
+		<img src="{{ post.header_image.url}}">
+		{% endif %}
+
+		<br/><br/>
+		{{ post.body | safe }}
+
+
+		<br/><br/>
+		<a href="{% url 'home'  %}" class="btn btn-secondary">Indietro</a>
+
+	<br/><br/>
+	<hr>
+	<br/>
+	<form action="{% url 'like_post' post.pk %}", method="POST">
+		{% csrf_token %}
+
+	{% if user.is_authenticated %}
+		{% if liked %}
+			<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-danger"> Dislike </button>
+
+		{% else %}
+			<button type="submit", name="post_id", value="{{ post.id }}", class="btn btn-primary"> Like </button>
+
+		{% endif %}
+	{% else %}
+		<small><a href="{% url 'login' %}">Login</a> to Like</small>>
+	{% endif %}
+		- {{ total_likes }} - Liked
+		
+	</form>
+
+<br/><br/>
+
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-2">
+{% if post.author.profile.profile_pic %}
+      <img src="{{ post.author.profile.profile_pic.url}}" width=150 height=150 >
+
+{% else %}
+
+	<img src="{% static 'Eblog/images/default-picture_0_0.png'  %}" class="card-img">
+
+{% endif %}
+    </div>
+    <div class="col-md-10">
+      <div class="card-body">
+        <h5 class="card-title">{{post.author.first_name }} {{post.author.last_name}}</h5>
+<p class="small text-muted">
+	{% if post.author.profile.website_url %}
+	<a href="post.author.profile.facebook_url" class="btn btn-primary active">Facebook</a> |
+	{% endif %}
+
+	{% if post.author.profile.instagram_url %}
+	<a href="post.author.profile.facebook_url" class="btn btn-primary active">Instagram</a>  |
+	{% endif %}
+
+	{% if post.author.profile.youtube_url %}
+	<a href="post.author.profile.facebook_url" class="btn btn-primary active">Youtube</a>
+	{% endif %}
+</p>
+    
+
+    <p class="card-text">{{ post.author.profile.bio}}</p>
+        
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

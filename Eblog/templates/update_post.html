@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block title %} Editare Il Articolo{% endblock%}
+
+
+
+ {% block content %}
+
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+	<h1>Carica Articolo ...</h1>
+	<br/><br/>
+
+	<div class="forms-group">
+		<form method = "POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.media }}
+		{{ form.as_p }}
+		<button class="btn btn-secondary">Publica</button>
+	</div>
+	{% else %}
+	Non sei autorizato!!!
+	{% endif %}
+{% else %}
+Non sei autorizato!!!
+
+{% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% block title %} Creare un Nouvo Articolo {% endblock%}
+
+
+
+ {% block content %}
+
+
+{% if user.is_authenticated %}
+	<h1>Aggiungi Articolo ...</h1>
+	<br/><br/>
+	<div class="form-group" >
+		<form method = "POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.media }}
+			{{ form.as_p }}
+			<button class="btn btn-secondary">Publica</button>
+	</div>
+
+	<script>
+		var name = "{{ user.id }}";
+		document.getElementById("Victor").value =
+		 name;
+
+	</script>
+
+{% else %}
+Non sei autorizato!!!
+
+{% endif %}
+{% endblock %}
