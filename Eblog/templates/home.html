@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
- 
+{% load static %}
+
 
 
 
@@ -9,29 +10,49 @@
 
 <h1>Posts</h1>
 
-<ul>
-{% for post in object_list %}
-	<li><a href="{%url 'article-detail' post.pk %}" class="btn btn-secondary">
-	{{	post.title }}</a> -
-	<a href="{%url 'category' post.category%}" class="btn btn-primary active">{{ post.category }} </a> - 
-	{{ post.author.first_name }}
-	{{	post.author.last_name }} -
-	{{ post.post_date}}  <small>
 
 
-	{% if user.is_authenticated %}
-		{% if user.id == post.author.id %}
-			<a href="{%url 'update_post' post.pk %}" class="btn btn-primary btn-sm">Modifica </a>
 
-			<a href="{%url 'delete_post' post.pk %}" class="btn btn-primary btn-sm">Elimina </a>
-		{% endif %}
-	{% endif %}
 
-	</small> <br/>
-	{{post.snippet}}
-	</li>
+
+<div class="album py-5 bg-light">
+	<div class="container">
+		<div class="row">
+		{% for post in object_list %}
+		    <div class="col-md-4">
+		      	<div class="card" style="width: 18rem;">
+			{% if post.header_image %}
+			  <img src="{{ post.header_image.url}}">
+			{% else %}
+
+			<img src="{% static 'Eblog/images/tumber.jpg'  %}" class="card-img">
+
+			{% endif %}
+
+			  <div class="card-body">
+			    <h5 class="card-title"><a href="{%url 'article-detail' post.pk %}" class="btn btn-secondary">
+			{{	post.title }}</a></h5>
+			    <p class="card-text">{{ post.snippet }}</p>
+			  </div>
+			  <ul class="list-group list-group-flush">
+			     <a href="{%url 'category' post.category%}" class="btn btn-primary btn-sm">{{ post.category }} </a>
+			    <li class="list-group-item">{{ post.author.first_name }} - {{	post.author.last_name }} </li>
+			    <li class="list-group-item">{{ post.post_date}}</li>
+			  </ul>
+			  <div class="card-body">
+			  	{% if user.is_authenticated %}
+					{% if user.id == post.author.id %}
+					    <a href="{%url 'update_post' post.pk %}" class="btn btn-primary btn-sm">Modifica </a>
+					    <a href="{%url 'delete_post' post.pk %}" class="btn btn-primary btn-sm">Elimina </a>
+					{% endif %}
+				{% endif %}
+		</div>
+	</div>
+</div>
+	<br/>
 {% endfor %}
-</ul>
+
+
 
 
 
