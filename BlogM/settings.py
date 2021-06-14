@@ -25,7 +25,7 @@ SECRET_KEY = 'ij2c(htz0*6qs*vh22hw2hqd!v4ri&u=bz$m5%2o9%2tkph7&r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['vectorblog.pythonanywhere.com']
 
 
 # Application definition
