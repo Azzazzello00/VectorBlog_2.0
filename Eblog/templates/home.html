@@ -15,14 +15,14 @@
 
 
 
-<div class="album py-5 bg-light">
+<div class="album py-3 bg-light">
 	<div class="container">
 		<div class="row">
 		{% for post in object_list %}
 		    <div class="col-md-4">
-		      	<div class="card" style="width: 18rem;">
+		      	<div class="card" style="width: 25.5rem;">
 			{% if post.header_image %}
-			  <img src="{{ post.header_image.url}}">
+			  <img src="{{ post.header_image.url}} ">
 			{% else %}
 
 			<img src="{% static 'Eblog/images/tumber.jpg'  %}" class="card-img">
@@ -48,6 +48,7 @@
 				{% endif %}
 		</div>
 	</div>
+	<br/>
 </div>
 	<br/>
 {% endfor %}
