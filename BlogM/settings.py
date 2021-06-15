@@ -25,7 +25,7 @@ SECRET_KEY = 'ij2c(htz0*6qs*vh22hw2hqd!v4ri&u=bz$m5%2o9%2tkph7&r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['vectorblog.pythonanywhere.com']
+ALLOWED_HOSTS = ['vectorblog.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
@@ -116,6 +116,14 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 750,
+        'width': 1295,
+    }}
 
 
 # Static files (CSS, JavaScript, Images)
